@@ -16,7 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import CategoryViewSet, TitleViewSet, GenreViewSet, ReviewsViewSet
+from .views import (
+    CategoryViewSet,
+    TitleViewSet,
+    GenreViewSet,
+    ReviewsViewSet,
+    CommentsViewSet
+)
 
 router1 = DefaultRouter()
 
@@ -27,6 +33,11 @@ router1.register(
     r'title/(?P<title_id>\d+)/review',
     ReviewsViewSet,
     basename='review'
+),
+router1.register(
+    r'title/(?P<title_id>\d+)/review/(?P<review_id>\d+)/comment',
+    CommentsViewSet,
+    basename='comment'
 )
 
 

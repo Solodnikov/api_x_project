@@ -56,7 +56,7 @@ class Genres(models.Model):
 
 
 class Titles(models.Model):
-    """Название произведения"""
+    """Произведения"""
     name = models.CharField(
         max_length=100,
         verbose_name='Наименование произведения'
@@ -93,7 +93,7 @@ class Titles(models.Model):
 
 
 class Reviews(models.Model):
-    """Название произведения"""
+    """Отзывы"""
     title = models.ForeignKey(
         Titles,
         related_name='review',
@@ -111,5 +111,30 @@ class Reviews(models.Model):
         verbose_name_plural = 'Отзывы'
 
 
-# Comments
+class Comments(models.Model):
+    """Комментарии к отзывам"""
+    text = models.TextField(
+        verbose_name='Комментарий'
+    )
+    # author =
+    pub_date = models.DateTimeField(
+        'Дата публикации',
+        auto_now_add=True
+    )
+    title = models.ForeignKey(
+        Titles,
+        related_name='comment',
+        on_delete=models.CASCADE,
+    )
+    review = models.ForeignKey(
+        Reviews,
+        related_name='comment',
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментрарии'
+
+
 # Users
