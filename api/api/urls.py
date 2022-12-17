@@ -16,18 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import CategoryViewSet, TitleViewSet, GenreViewSet
+from .views import CategoryViewSet, TitleViewSet, GenreViewSet, ReviewsViewSet
 
 router1 = DefaultRouter()
 
 router1.register('category', CategoryViewSet, basename='category')
 router1.register('title', TitleViewSet, basename='title')
 router1.register('genre', GenreViewSet, basename='genre')
-# router1.register(
-#     r'posts/(?P<post_id>\d+)/comments',
-#     CommentViewSet,
-#     basename='comments'
-# )
+router1.register(
+    r'title/(?P<title_id>\d+)/review',
+    ReviewsViewSet,
+    basename='review'
+)
 
 
 urlpatterns = [

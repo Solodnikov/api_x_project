@@ -3,7 +3,7 @@
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
-from base.models import Categories, Genres, Titles
+from base.models import Categories, Genres, Titles, Reviews
 
 
 # class Base64ImageField(serializers.ImageField):
@@ -42,6 +42,13 @@ class TitlesSerializer(serializers.ModelSerializer):
         fields = '__all__'
         model = Titles
 
+
+class ReviewsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        fields = '__all__'
+        model = Reviews
+        read_only_fields = ('title',)
 
 
 # class PostSerializer(serializers.ModelSerializer):

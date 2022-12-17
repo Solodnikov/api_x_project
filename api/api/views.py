@@ -2,10 +2,10 @@ from rest_framework import viewsets, mixins, filters, permissions
 from django.shortcuts import get_object_or_404
 from rest_framework.pagination import LimitOffsetPagination
 
-from base.models import Categories, Titles, Genres
+from base.models import Categories, Titles, Genres, Reviews
 # from .permissions import IsAuthorOrReadOnly
 from .serializers import (
-    CategoriesSerializer, TitlesSerializer, GenresSerializer
+    CategoriesSerializer, TitlesSerializer, GenresSerializer, ReviewsSerializer
 )
 
 
@@ -29,6 +29,20 @@ class GenreViewSet(viewsets.ModelViewSet):
     # permission_classes = (IsAuthorOrReadOnly,)
     # pagination_class = LimitOffsetPagination
 
+
+class ReviewsViewSet(viewsets.ModelViewSet):
+    # queryset = Reviews.objects.all()
+    serializer_class = ReviewsSerializer
+
+    def get_title(self):
+        title_id = self.kwargs.get('title_id')
+        return get_object_or_404(Titles, pk=title_id)
+
+    def get_queryset(self):
+        return self.get_title().review.all()
+
+    def perform_create(self, serializer):
+        serializer.save(title=self.get_title())
 
 
 # class CommentViewSet(viewsets.ModelViewSet):

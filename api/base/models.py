@@ -92,6 +92,24 @@ class Titles(models.Model):
         ]
 
 
-# Reviews
+class Reviews(models.Model):
+    """Название произведения"""
+    title = models.ForeignKey(
+        Titles,
+        related_name='review',
+        on_delete=models.CASCADE,
+    )
+    text = models.TextField(
+        verbose_name='Отзыв'
+    )
+    score = models.IntegerField(
+        verbose_name='Балы'
+    )
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+
 # Comments
 # Users
