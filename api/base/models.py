@@ -62,16 +62,20 @@ class Titles(models.Model):
         verbose_name='Наименование произведения'
     )
     year = models.IntegerField(
-        min_value=1000,
-        max_value=2022,
+        # min_value=1000,
+        # max_value=2022,
         verbose_name='Год произведения'
     )
     description = models.TextField()
     genre = models.ForeignKey(
-        Genres, related_name='titles'
+        Genres,
+        related_name='titles',
+        on_delete=models.CASCADE,
     )
     category = models.ForeignKey(
-        Categories, related_name='titles'
+        Categories,
+        related_name='titles',
+        on_delete=models.CASCADE,
     )
 
     class Meta:
@@ -80,7 +84,7 @@ class Titles(models.Model):
         constraints = [
             models.UniqueConstraint(
                 name="%(app_label)s_%(class)s_unique_relationships",
-                fields=["name", "year","description", "genre", "category"],
+                fields=["name", "year", "description", "genre", "category"],
             ),
         ]
 
