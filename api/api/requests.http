@@ -1,0 +1,9 @@
+# NASA API
+
+###
+GET https://api.nasa.gov/planetary/apod?api_key=MWo7BIDBHhwesdeGDeIRzIt4oQ1NdfODK6E3g8Wj
+
+
+###
+GET https://dog.ceo/api/breeds/image/random
+
