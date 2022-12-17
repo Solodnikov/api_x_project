@@ -89,8 +89,6 @@ class Titles(models.Model):
         ]
 
 
-
-
 # Reviews
 # Comments
 # Users
