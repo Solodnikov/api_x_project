@@ -66,7 +66,10 @@ class Titles(models.Model):
         # max_value=2022,
         verbose_name='Год произведения'
     )
-    description = models.TextField()
+    description = models.TextField(
+        null=True,
+        blank=True,
+    )
     genre = models.ForeignKey(
         Genres,
         related_name='titles',
