@@ -52,22 +52,35 @@ class ReviewsViewSet(viewsets.ModelViewSet):
 
 
 class CommentsViewSet(viewsets.ModelViewSet):
-    # queryset = Reviews.objects.all()
     serializer_class = CommentsSerializer
 
-    # def get_title(self):
-    #     title_id = self.kwargs.get('title_id')
-    #     return get_object_or_404(Titles, pk=title_id)
-
-    def get_review(self):
-        review_id = self.kwargs.get('review_id')
-        return get_object_or_404(Reviews, pk=review_id)
-
     def get_queryset(self):
-        return self.get_review().review.all()
+        review = get_object_or_404(
+            Reviews,
+            id=self.kwargs.get('review_id')
+        )
+        return review.comment.all()
 
     def perform_create(self, serializer):
-        serializer.save(title=self.get_title(), review=self.get_review())  ## ТУТ ВСЕ НЕВЕРНО!!
+        review = get_object_or_404(
+            Reviews,
+            id=self.kwargs.get('review_id')
+        )
+        title = get_object_or_404(
+            Titles,
+            id=self.kwargs.get('title_id')
+        )
+        serializer.save(review=review, title=title)
+
+    # def get_review(self):
+    #     review_id = self.kwargs.get('review_id')
+    #     return get_object_or_404(Reviews, pk=review_id)
+
+    # def get_queryset(self):
+    #     return self.get_review().review.all()
+
+    # def perform_create(self, serializer):
+    #     serializer.save(title=self.get_title(), review=self.get_review())  ## ТУТ ВСЕ НЕВЕРНО!!
 
 
 # class CommentViewSet(viewsets.ModelViewSet):
